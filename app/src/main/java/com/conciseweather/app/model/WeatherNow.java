@@ -5,19 +5,10 @@ package com.conciseweather.app.model;
  */
 public class WeatherNow {
 
-    private int id;
     private String cityName;
     private String weatherText;
-    private int temp;
-    private int flTemp;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private String temp;
+    private String flTemp;
 
     public String getCityName() {
         return cityName;
@@ -35,19 +26,19 @@ public class WeatherNow {
         this.weatherText = weatherText;
     }
 
-    public int getTemp() {
+    public String getTemp() {
         return temp;
     }
 
-    public void setTemp(int temp) {
+    public void setTemp(String temp) {
         this.temp = temp;
     }
 
-    public int getFlTemp() {
+    public String getFlTemp() {
         return flTemp;
     }
 
-    public void setFlTemp(int flTemp) {
+    public void setFlTemp(String flTemp) {
         this.flTemp = flTemp;
     }
 }

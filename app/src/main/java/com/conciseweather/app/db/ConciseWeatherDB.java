@@ -37,7 +37,6 @@ public class ConciseWeatherDB {
 
     public void saveDailyForecast(DailyForecast dailyForecast){
         if (dailyForecast != null){
-            String cityName = dailyForecast.getCityName();
             ContentValues values = new ContentValues();
             values.put("date", dailyForecast.getDate());
             values.put("city_name", dailyForecast.getCityName());
@@ -46,26 +45,31 @@ public class ConciseWeatherDB {
             values.put("tmp_max", dailyForecast.getMaxTemp());
             values.put("wind_dir", dailyForecast.getWindDir());
             values.put("wind_sc", dailyForecast.getWindSc());
-            db.delete("daily_forecast","city_name = ?", new String[] {cityName});
             db.insert("daily_forecast",null,values);
         }
     }
 
+    public void deleteDailyForecast(String cityName){
+        db.delete("daily_forecast","city_name = ?", new String[] {cityName});
+    }
+
     public void saveWeatherNow(WeatherNow weatherNow){
         if (weatherNow != null){
-            String cityName = weatherNow.getCityName();
             ContentValues values = new ContentValues();
             values.put("city_name", weatherNow.getCityName());
             values.put("weather_txt", weatherNow.getWeatherText());
             values.put("temp", weatherNow.getTemp());
             values.put("fl", weatherNow.getFlTemp());
-            db.delete("weather_now", "city_name = ?", new String[] {cityName});
             db.insert("weather_now", null, values);
         }
     }
 
+    public void deleteWeatherNow(String cityName){
+        db.delete("weather_now", "city_name = ?", new String[] {cityName});
+    }
+
     public List<DailyForecast> loadDailyForecast(String cityName){
-        List<DailyForecast> list = new ArrayList<DailyForecast>();
+        List<DailyForecast> list = new ArrayList<>();
         Cursor cursor = db.query("daily_forecast", null, "city_name = ?",
                 new String[] {cityName}, "date", null, null);
         if (cursor.moveToFirst()){
@@ -73,8 +77,8 @@ public class ConciseWeatherDB {
                 DailyForecast dailyForecast = new DailyForecast();
                 dailyForecast.setDate(cursor.getString(cursor.getColumnIndex("date")));
                 dailyForecast.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
-                dailyForecast.setMinTemp(cursor.getInt(cursor.getColumnIndex("tmp_min")));
-                dailyForecast.setMaxTemp(cursor.getInt(cursor.getColumnIndex("tmp_max")));
+                dailyForecast.setMinTemp(cursor.getString(cursor.getColumnIndex("tmp_min")));
+                dailyForecast.setMaxTemp(cursor.getString(cursor.getColumnIndex("tmp_max")));
                 dailyForecast.setWeatherText(cursor.getString(cursor.getColumnIndex("weather_txt")));
                 dailyForecast.setWindDir(cursor.getString(cursor.getColumnIndex("win_dir")));
                 dailyForecast.setWindSc(cursor.getString(cursor.getColumnIndex("win_sc")));
@@ -95,7 +99,7 @@ public class ConciseWeatherDB {
             do{
                 weatherNow.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
                 weatherNow.setWeatherText(cursor.getString(cursor.getColumnIndex("weather_txt")));
-                weatherNow.setTemp(cursor.getInt(cursor.getColumnIndex("temp")));
+                weatherNow.setTemp(cursor.getString(cursor.getColumnIndex("temp")));
             }while (cursor.moveToNext());
         }
         if (cursor != null){

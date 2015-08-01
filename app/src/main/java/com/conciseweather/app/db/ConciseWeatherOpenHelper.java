@@ -19,7 +19,7 @@ public class ConciseWeatherOpenHelper extends SQLiteOpenHelper {
             + "tmp_max integer, "
             + "wind_dir text, "
             + "wind_sc text)";
-
+    // Create table for weather now.
     public static final String CREATE_WEATHER_NOW = "create table weather_now ("
             + "_id integer primary key autoincrement, "
             + "city_name, "

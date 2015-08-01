@@ -5,22 +5,13 @@ package com.conciseweather.app.model;
  */
 public class DailyForecast {
 
-    private int id;
     private String date;
     private String cityName;
     private String weatherText;
-    private int MinTemp;
-    private int MaxTemp;
+    private String MinTemp;
+    private String MaxTemp;
     private String windDir;
     private String windSc;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getDate() {
         return date;
@@ -46,19 +37,19 @@ public class DailyForecast {
         this.weatherText = weatherText;
     }
 
-    public int getMinTemp() {
+    public String getMinTemp() {
         return MinTemp;
     }
 
-    public void setMinTemp(int minTemp) {
+    public void setMinTemp(String minTemp) {
         MinTemp = minTemp;
     }
 
-    public int getMaxTemp() {
+    public String getMaxTemp() {
         return MaxTemp;
     }
 
-    public void setMaxTemp(int maxTemp) {
+    public void setMaxTemp(String maxTemp) {
         MaxTemp = maxTemp;
     }
 
