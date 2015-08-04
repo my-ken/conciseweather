@@ -11,6 +11,8 @@ import java.net.URL;
  */
 public class HttpUtil {
 
+    private static String apiKey = "3c5ee96fd6f53ce53da0b6b945834842";
+
     public static void sendHttpRequest(final String address,
                                        final HttpCallbackListener listener){
         new Thread(new Runnable() {
@@ -20,11 +22,12 @@ public class HttpUtil {
                 try {
                     URL url = new URL(address);
                     connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestProperty("apikey", apiKey);
                     connection.setRequestMethod("GET");
                     connection.setReadTimeout(8000);
                     connection.setReadTimeout(8000);
                     InputStream in = connection.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
                     StringBuilder response = new StringBuilder();
                     String line;
                     while ((line = reader.readLine()) != null){

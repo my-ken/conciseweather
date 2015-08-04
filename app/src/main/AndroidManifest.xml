@@ -11,6 +11,10 @@
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
+        <activity
+            android:name=".activity.ShowWeatherActivity"
+            android:label="@string/title_activity_show_weather" >
+        </activity>
     </application>
 
 </manifest>

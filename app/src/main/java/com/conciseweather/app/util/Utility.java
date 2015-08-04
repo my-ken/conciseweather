@@ -71,6 +71,7 @@ public class Utility {
         SharedPreferences.Editor  editor = PreferenceManager
                 .getDefaultSharedPreferences(context).edit();
         editor.putString("update_time", updateTime);
+        editor.putBoolean("city_selected", true);
         editor.apply();
     }
 }
