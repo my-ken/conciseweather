@@ -7,5 +7,5 @@ public interface HttpCallbackListener {
 
     void onFinish(String response);
 
-    void onErro(Exception e);
+    void onError(Exception e);
 }

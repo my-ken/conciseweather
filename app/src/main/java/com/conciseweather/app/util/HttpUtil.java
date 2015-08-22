@@ -1,5 +1,7 @@
 package com.conciseweather.app.util;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,10 +23,11 @@ public class HttpUtil {
                 HttpURLConnection connection = null;
                 try {
                     URL url = new URL(address);
+                    Log.d("Address", address);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestProperty("apikey", apiKey);
                     connection.setRequestMethod("GET");
-                    connection.setReadTimeout(8000);
+                    connection.setConnectTimeout(8000);
                     connection.setReadTimeout(8000);
                     InputStream in = connection.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -33,13 +36,13 @@ public class HttpUtil {
                     while ((line = reader.readLine()) != null){
                         response.append(line);
                     }
+                    Log.d("Http Response", response.toString());
                     if (listener != null){
                         listener.onFinish(response.toString());
                     }
-
                 }catch (Exception e){
                     if (listener != null){
-                        listener.onErro(e);
+                        listener.onError(e);
                     }
                 }finally {
                     if (connection != null){

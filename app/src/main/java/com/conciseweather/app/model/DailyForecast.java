@@ -68,4 +68,17 @@ public class DailyForecast {
     public void setWindSc(String windSc) {
         this.windSc = windSc;
     }
+
+    @Override
+    public String toString() {
+        return "DailyForecast{" +
+                "date='" + date + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", weatherText='" + weatherText + '\'' +
+                ", MinTemp='" + MinTemp + '\'' +
+                ", MaxTemp='" + MaxTemp + '\'' +
+                ", windDir='" + windDir + '\'' +
+                ", windSc='" + windSc + '\'' +
+                '}';
+    }
 }

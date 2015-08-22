@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.conciseweather.app.model.City;
 import com.conciseweather.app.model.DailyForecast;
 import com.conciseweather.app.model.WeatherNow;
 
@@ -80,8 +81,8 @@ public class ConciseWeatherDB {
                 dailyForecast.setMinTemp(cursor.getString(cursor.getColumnIndex("tmp_min")));
                 dailyForecast.setMaxTemp(cursor.getString(cursor.getColumnIndex("tmp_max")));
                 dailyForecast.setWeatherText(cursor.getString(cursor.getColumnIndex("weather_txt")));
-                dailyForecast.setWindDir(cursor.getString(cursor.getColumnIndex("win_dir")));
-                dailyForecast.setWindSc(cursor.getString(cursor.getColumnIndex("win_sc")));
+                dailyForecast.setWindDir(cursor.getString(cursor.getColumnIndex("wind_dir")));
+                dailyForecast.setWindSc(cursor.getString(cursor.getColumnIndex("wind_sc")));
                 list.add(dailyForecast);
             }while (cursor.moveToNext());
         }
@@ -106,6 +107,40 @@ public class ConciseWeatherDB {
             cursor.close();
         }
         return weatherNow;
+    }
+
+    public void saveCity(City city){
+        if(city != null){
+            ContentValues values = new ContentValues();
+            values.put("city_name_CN", city.getCityNameCN());
+            values.put("city_name_PY", city.getCityNamePY());
+            values.put("city_name_short", city.getCityNameShort());
+            db.insert("City", null, values);
+        }
+    }
+
+    public List<City> queryCities(String queryText){
+        List<City> list = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select * from City where City match '" + queryText + "';",
+                null);
+        if (cursor.moveToFirst()){
+            do{
+                City city = new City();
+                city.setCityNameCN(cursor.getString(cursor.getColumnIndex("city_name_CN")));
+                city.setCityNamePY(cursor.getString(cursor.getColumnIndex("city_name_PY")));
+                city.setCityNameShort(cursor.getString(cursor.getColumnIndex("city_name_short")));
+                list.add(city);
+            }while(cursor.moveToNext());
+        }
+        if (cursor != null){
+            cursor.close();
+        }
+        return list;
+
+    }
+
+    public void clearCity(){
+        db.delete("City", null, null);
     }
 
 }

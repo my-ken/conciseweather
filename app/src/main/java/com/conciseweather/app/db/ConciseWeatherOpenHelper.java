@@ -19,6 +19,7 @@ public class ConciseWeatherOpenHelper extends SQLiteOpenHelper {
             + "tmp_max integer, "
             + "wind_dir text, "
             + "wind_sc text)";
+
     // Create table for weather now.
     public static final String CREATE_WEATHER_NOW = "create table weather_now ("
             + "_id integer primary key autoincrement, "
@@ -26,6 +27,12 @@ public class ConciseWeatherOpenHelper extends SQLiteOpenHelper {
             + "weather_txt text, "
             + "temp integer, "
             + "fl integer)";
+
+    //Create virtual table for city data.
+    public static final String CREATE_CITY = "create virtual table City using fts3("
+            + "city_name_CN, "
+            + "city_name_PY, "
+            + "city_name_short)";
 
     public ConciseWeatherOpenHelper(
             Context context,
@@ -39,6 +46,7 @@ public class ConciseWeatherOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_DAILY_FORECAST);
         db.execSQL(CREATE_WEATHER_NOW);
+        db.execSQL(CREATE_CITY);
 
     }
 

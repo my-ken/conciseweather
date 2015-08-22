@@ -4,9 +4,30 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="45dp"
         android:background="#0097a7">
+        <Button
+            android:id="@+id/switch_city_btn"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:text="@string/switch_city"
+            android:textSize="12sp"
+            android:textColor="#333"/>
+        <Button
+            android:id="@+id/update_weather_btn"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:text="@string/update_weather"
+            android:textSize="12sp"
+            android:textColor="#333"/>
         <TextView
             android:id="@+id/title_main"
             android:layout_width="wrap_content"
@@ -70,10 +91,62 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/days_title"
+            android:gravity="center"
+            android:textColor="#0097a7"
+            android:textSize="25sp" />
+        <LinearLayout
+            android:id="@+id/lv_title"
+            android:layout_below="@id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:text="@string/date"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:text="@string/weather"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:text="@string/temperature"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:text="@string/wind_direction"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:text="@string/wind_source"/>
+        </LinearLayout>
         <ListView
             android:id="@+id/daily_forecast_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#b6b6b6" />
+            android:layout_below="@id/lv_title"/>
     </RelativeLayout>
 </LinearLayout>
