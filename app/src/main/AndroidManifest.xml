@@ -6,12 +6,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/concise_weather_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.ShowWeatherActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -19,8 +20,11 @@
         </activity>
         <activity
             android:name=".activity.SearchCityActivity"
-            android:label="@string/title_activity_search_city" >
+            android:label="@string/title_activity_search_city"
+            android:screenOrientation="portrait">
         </activity>
+        <service android:name=".service.AutoUpdateService"/>
+        <receiver android:name=".receiver.AutoUpdateReceive"/>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -51,6 +52,8 @@ public class SearchCityActivity extends Activity implements SearchView.OnQueryTe
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(this);
         searchView.setSubmitButtonEnabled(false);
+        searchView.setQueryHint(Html.fromHtml("<font><small>"
+                + getString(R.string.search_hint) + "</small></fonts>"));
         conciseWeatherDB = ConciseWeatherDB.getInstance(this);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if (pref.getBoolean("first_run", true)){
@@ -114,16 +117,17 @@ public class SearchCityActivity extends Activity implements SearchView.OnQueryTe
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                SharedPreferences.Editor editor = PreferenceManager
-                        .getDefaultSharedPreferences(SearchCityActivity.this)
-                        .edit();
-                editor.putBoolean("city_selected", true);
-                editor.apply();
                 Map<String, Object> citySelectMap = queryResults.get(position);
                 String citySelect = (String) citySelectMap.get("cityNamePY");
                 Log.d("SearchCityActivity", citySelect);
                 conciseWeatherDB.deleteWeatherNow(citySelect);
                 conciseWeatherDB.deleteDailyForecast(citySelect);
+                SharedPreferences.Editor editor = PreferenceManager
+                        .getDefaultSharedPreferences(SearchCityActivity.this)
+                        .edit();
+                editor.putBoolean("city_selected", true);
+                editor.putString("select_city_name",citySelect);
+                editor.apply();
                 Intent intent = new Intent(SearchCityActivity.this, ShowWeatherActivity.class);
                 intent.putExtra("select_city", citySelect);
                 startActivity(intent);

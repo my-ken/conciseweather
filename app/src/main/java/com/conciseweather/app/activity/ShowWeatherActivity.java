@@ -20,6 +20,7 @@ import com.conciseweather.app.R;
 import com.conciseweather.app.db.ConciseWeatherDB;
 import com.conciseweather.app.model.DailyForecast;
 import com.conciseweather.app.model.WeatherNow;
+import com.conciseweather.app.service.AutoUpdateService;
 import com.conciseweather.app.util.HttpCallbackListener;
 import com.conciseweather.app.util.HttpUtil;
 import com.conciseweather.app.util.Utility;
@@ -31,10 +32,11 @@ import java.util.List;
 
 public class ShowWeatherActivity extends Activity implements View.OnClickListener{
 
-    private static String httpURL = "http://apis.baidu.com/heweather/weather/free?city=";
+    private String httpURL = "http://apis.baidu.com/heweather/weather/free?city=";
 
     private TextView titleMain;
     private TextView cityNameText;
+    private TextView publishTimeText;
     private TextView updateTimeText;
     private TextView tempText;
     private TextView weatherText;
@@ -65,6 +67,7 @@ public class ShowWeatherActivity extends Activity implements View.OnClickListene
         titleMain = (TextView) findViewById(R.id.title_main);
         cityNameText = (TextView) findViewById(R.id.city_name);
         updateTimeText = (TextView) findViewById(R.id.update_time);
+        publishTimeText = (TextView) findViewById(R.id.publish_time);
         tempText = (TextView) findViewById(R.id.temp_now);
         weatherText = (TextView) findViewById(R.id.weather_text_now);
         adapter = new DailyAdapter(this, R.layout.daily_item, dailyForecastList);
@@ -90,7 +93,6 @@ public class ShowWeatherActivity extends Activity implements View.OnClickListene
         HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
-
                 Utility.handleWeatherResponse(ShowWeatherActivity.this, response);
                 runOnUiThread(new Runnable() {
                     @Override
@@ -136,6 +138,7 @@ public class ShowWeatherActivity extends Activity implements View.OnClickListene
                 getDefaultSharedPreferences(this);
         ConciseWeatherDB db = ConciseWeatherDB.getInstance(this);
         String cityName = prefs.getString("city_name", "");
+        publishTimeText.setText(prefs.getString("publish_time", ""));
         updateTimeText.setText(prefs.getString("update_time", ""));
         titleMain.setText(getString(R.string.app_name));
         WeatherNow weatherNow = db.loadWeatherNow(cityName);
@@ -147,6 +150,10 @@ public class ShowWeatherActivity extends Activity implements View.OnClickListene
         adapter.clear();
         adapter.addAll(dailyForecastList);
         adapter.notifyDataSetChanged();
+        if (!(prefs.getBoolean("is_start_service", false))){
+            Intent i = new Intent(ShowWeatherActivity.this, AutoUpdateService.class);
+            startService(i);
+        }
     }
 
     @Override

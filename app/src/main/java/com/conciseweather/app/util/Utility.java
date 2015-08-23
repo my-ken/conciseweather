@@ -14,7 +14,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Ken on 2015/7/31.
@@ -85,12 +88,16 @@ public class Utility {
         }
     }
 
-    public static void saveWeatherInfo(Context context, String updateTime, String cityName){
-        SharedPreferences.Editor  editor = PreferenceManager
+    public static void saveWeatherInfo(Context context, String publishTime, String cityName){
+        SimpleDateFormat sdf = new SimpleDateFormat("M" +
+                context.getString(R.string.month) + "d" +
+                context.getString(R.string.day_of_month) +
+                "  h:mm", Locale.CHINA);
+        SharedPreferences.Editor editor = PreferenceManager
                 .getDefaultSharedPreferences(context).edit();
-        editor.putString("update_time", updateTime);
+        editor.putString("publish_time", publishTime);
         editor.putString("city_name", cityName);
-//        editor.putBoolean("city_selected", true);
+        editor.putString("update_time", sdf.format(new Date()));
         editor.apply();
     }
 }
