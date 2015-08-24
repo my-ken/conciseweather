@@ -32,8 +32,6 @@ import java.util.List;
 
 public class ShowWeatherActivity extends Activity implements View.OnClickListener{
 
-    private String httpURL = "http://apis.baidu.com/heweather/weather/free?city=";
-
     private TextView titleMain;
     private TextView cityNameText;
     private TextView publishTimeText;
@@ -89,6 +87,7 @@ public class ShowWeatherActivity extends Activity implements View.OnClickListene
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        String httpURL = "https://api.heweather.com/x3/weather?city=";
         String address = httpURL + cityNameURL;
         HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
             @Override

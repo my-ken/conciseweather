@@ -13,7 +13,7 @@ import java.net.URL;
  */
 public class HttpUtil {
 
-    private static String apiKey = "3c5ee96fd6f53ce53da0b6b945834842";
+    private static String apiKey = "&key=20f6b1845279488f9add22048dba9c93";
 
     public static void sendHttpRequest(final String address,
                                        final HttpCallbackListener listener){
@@ -22,10 +22,9 @@ public class HttpUtil {
             public void run() {
                 HttpURLConnection connection = null;
                 try {
-                    URL url = new URL(address);
+                    URL url = new URL(address + apiKey);
                     Log.d("Address", address);
                     connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestProperty("apikey", apiKey);
                     connection.setRequestMethod("GET");
                     connection.setConnectTimeout(8000);
                     connection.setReadTimeout(8000);
