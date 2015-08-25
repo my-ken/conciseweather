@@ -92,7 +92,7 @@ public class Utility {
         SimpleDateFormat sdf = new SimpleDateFormat("M" +
                 context.getString(R.string.month) + "d" +
                 context.getString(R.string.day_of_month) +
-                "  hh:mm", Locale.CHINA);
+                "  HH:mm", Locale.CHINA);
         SharedPreferences.Editor editor = PreferenceManager
                 .getDefaultSharedPreferences(context).edit();
         editor.putString("publish_time", publishTime);
