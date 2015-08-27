@@ -13,7 +13,7 @@ import java.net.URL;
  */
 public class HttpUtil {
 
-    private static String apiKey = "&key=20f6b1845279488f9add22048dba9c93";
+    private final static String apiKey = "&key=20f6b1845279488f9add22048dba9c93";
 
     public static void sendHttpRequest(final String address,
                                        final HttpCallbackListener listener){

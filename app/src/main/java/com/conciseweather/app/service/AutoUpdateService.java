@@ -26,8 +26,7 @@ import java.util.Locale;
  */
 public class AutoUpdateService extends Service {
 
-    private int hour = 3600 * 1000;
-    private String httpURL = "http://apis.baidu.com/heweather/weather/free?city=";
+    String httpURL = "https://api.heweather.com/x3/weather?city=";
     private boolean isCreated;
 
     @Override
@@ -59,6 +58,7 @@ public class AutoUpdateService extends Service {
             }).start();
         }
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        int hour = 3600 * 1000;
         long triggerTime = SystemClock.elapsedRealtime() + (hour * 8);
         Intent i = new Intent(this, AutoUpdateReceive.class);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);

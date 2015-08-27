@@ -138,14 +138,17 @@ public class SearchCityActivity extends Activity implements SearchView.OnQueryTe
 
     public void loadCityData(int cityArrID){
         String[] cityArr = getResources().getStringArray(cityArrID);
-        City cityTemp = new City();
+        List<City> cities = new ArrayList<>();
         for (String array : cityArr) {
+            City cityTemp = new City();
             String[] temp = array.split("\\|\\|");
             cityTemp.setCityNameCN(temp[0]);
             cityTemp.setCityNamePY(temp[1]);
             cityTemp.setCityNameShort(temp[3]);
-            conciseWeatherDB.saveCity(cityTemp);
+            cities.add(cityTemp);
         }
+        conciseWeatherDB.saveCity(cities);
+        cities.clear();
     }
 
     public void showProgressDialog(){

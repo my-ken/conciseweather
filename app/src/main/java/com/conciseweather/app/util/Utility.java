@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -25,9 +24,10 @@ import java.util.Locale;
 public class Utility {
     public static void handleWeatherResponse(Context context, String response){
 
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        SimpleDateFormat sdf = new SimpleDateFormat("M" +
+                context.getString(R.string.month) + "d" +
+                context.getString(R.string.day_of_month), Locale.CHINA);
+        long oneDay = 24 * 60 * 60 * 1000;
 
         DailyForecast dailyForecast = new DailyForecast();
         WeatherNow weatherNow = new WeatherNow();
@@ -49,8 +49,7 @@ public class Utility {
             db.deleteWeatherNow(cityName);
             JSONArray dailyForecasts = details.getJSONArray("daily_forecast");
             for (int i = 0; i < dailyForecasts.length(); i++){
-                dailyForecast.setDate(month + context.getString(R.string.month)
-                        + (day + i) + context.getString(R.string.day_of_month));
+                dailyForecast.setDate(sdf.format(new Date(System.currentTimeMillis() + oneDay * i)));
                 JSONObject forecast = dailyForecasts.getJSONObject(i);
                 JSONObject weatherText = forecast.getJSONObject("cond");
                 String weatherTxt = weatherText.getString("txt_d");

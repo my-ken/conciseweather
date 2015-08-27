@@ -109,13 +109,16 @@ public class ConciseWeatherDB {
         return weatherNow;
     }
 
-    public void saveCity(City city){
-        if(city != null){
+    public void saveCity(List<City> cities){
+        if(!cities.isEmpty()){
             ContentValues values = new ContentValues();
-            values.put("city_name_CN", city.getCityNameCN());
-            values.put("city_name_PY", city.getCityNamePY());
-            values.put("city_name_short", city.getCityNameShort());
-            db.insert("City", null, values);
+            for (City city : cities){
+                values.put("city_name_CN", city.getCityNameCN());
+                values.put("city_name_PY", city.getCityNamePY());
+                values.put("city_name_short", city.getCityNameShort());
+                db.insert("City", null, values);
+                values.clear();
+            }
         }
     }
 
